@@ -41,6 +41,12 @@ resource "aws_instance" "jenkins_instance" {
     sudo yum install -y jenkins
     sudo systemctl daemon-reload
     sudo systemctl start jenkins
+    
+    sleep 300
+    
+    sudo cd /home/ec2-user/.ssh/
+    sudo ssh-keygen -t rsa -b 4096 -C "jenkins-control-machine" -q -N "" -f /home/ec2-user/.ssh/id_rsa
+    sudo chmod 700 ~/.ssh
   EOT
 
   # Tags
@@ -66,6 +72,17 @@ resource "aws_instance" "ansible_instance" {
     sudo yum install -y python3 python3-pip
     sudo pip3 install ansible
     ansible-galaxy collection install ansible.posix
+    
+    sudo mkdir /etc/ansible
+    sudo chown -R $USER:$USER /etc/ansible
+    sudo chmod -R 755 /etc/ansible
+    sudo touch /etc/ansible/hosts
+    
+    sleep 300
+    
+    sudo cd /home/ec2-user/.ssh/
+    sudo ssh-keygen -t rsa -b 4096 -C "ansible-control-machine" -q -N "" -f /home/ec2-user/.ssh/id_rsa
+    sudo chmod 700 ~/.ssh
   EOT
 
   # Tags
@@ -94,6 +111,8 @@ resource "aws_instance" "web_instance" {
     sudo chown -R ec2-user: /opt/tomcat
     sudo chmod +x /opt/tomcat/bin/*.sh
     sudo systemctl daemon-reload
+    
+    sudo chmod 700 ~/.ssh
   EOT
 
   # Tags
