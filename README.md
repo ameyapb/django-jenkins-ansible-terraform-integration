@@ -1,33 +1,54 @@
-# Foodplaza
-
-  The purpose of Online Food Ordering System is to automate the existing manual system by the help of computerized equipment’s and full-fledged computer software, fulfilling their requirements, so that their valuable data/information can be stored for a longer period with easy accessing and manipulation of the same. The required software and hardware are easily available and easy to work with.
-    
-  Online Food Ordering System, as described above, can lead to error free, secure, reliable and fast management system. It can assist the user to concentrate on their other activities rather to concentrate on the record keeping. Thus it will help organization in better utilization of resources. The organization can maintain computerized records without redundant entries. That means that one need not be distracted by information that is not relevant, while being able to reach the information.
-  
-  The aim is to automate its existing manual system by the help of computerized equipment’s and full-fledged computer software, fulfilling their requirements, so that their valuable data/information can be stored for a longer period with easy accessing and manipulation of the same. Basically the project describes how to manage for good performance and better services for the clients.
-
-  The "FoodPlaza" has been practiced to override the prevalent problems in manual systems. This website is compatible to finalize and, in some cases, reduce the difficulties faced by this existing system. In addition, the system is designed to function smoothly and effectively for the special needs of the company.
-  
-  The website is minimized as much as possible to avoid errors when entering data. It also gives an error message when entering invalid data. No formal knowledge is required for the user to use this system. Therefore, every test is easy to use. Online food order systems, as described above, can lead to error-free, safe, reliable and fast management systems. This can help the user focus on his other activities instead of focusing on record keeping. Therefore, it will help the organization to make better use of resources.
+# Devops Project: django-jenkins-ansible-terraform-integration
 
 
-Homepage:<br>
-![alt text](https://github.com/CosmiX-6/FoodPlaza/blob/main/Screenshots/foodplaza-admin-home-1.png "Home Preview")
-![alt text](https://github.com/CosmiX-6/FoodPlaza/blob/main/Screenshots/foodplaza-login.png "Login Preview")
+This repository contains code and configurations for automating the deployment of a web application using Django, Jenkins, Ansible, and Terraform.
 
------------------------------------------------
-`<url>/admin` (Database Backend)<br>
-id = 'cosmix' | pass = 'admin'<br>
-Register for admin login in database backend!!
+## Getting Started
 
------------------------------------------------
-Register New account for login as user
------------------------------------------------
-__Project Focus On :__ Python<br>
-## A web application
+### GitHub Setup
 
-__Language Used:__
- + __frontend :__ #HTML, #CSS, #JS
- + __backend :__ #Python3 #Django #Sqlite3
+1. Create a GitHub repository for your application.
 
-Extra Theme for app available in Template Test folder(used online Bootstrap)*
+2. Clone the repository to your local machine using VScode.
+
+3. Commit your changes and push them to GitHub.
+
+### Terraform Setup
+
+1. Install and configure Terraform on your local machine.
+
+2. Create a `main.tf` file and paste the required configuration.
+
+3. Run `terraform init` and `terraform apply -auto-approve -input=false | tee install.log`.
+
+### Jenkins Configuration
+
+1. Set up SSH authentication between Jenkins and Ansible servers.
+
+2. Access Jenkins at `http://<Jenkins-Server-Public-IP>:8080`.
+
+3. Install suggested plugins and create your login credentials.
+
+4. Install the "Publish over SSH" plugin.
+
+5. Set up a GitHub webhook in your repository settings to trigger Jenkins on push events.
+
+### Ansible Configuration
+
+1. Set up SSH authentication between Ansible and Jenkins servers.
+
+2. Create a directory to store data received from Jenkins.
+
+3. Edit the Ansible hosts file to add the web server's public IP.
+
+### Jenkins Pipeline
+
+1. Create a new Jenkins Job as a Pipeline.
+
+2. Configure the pipeline script from SCM with the repository URL, credentials, and branch specifier.
+
+3. Commit and push the Jenkinsfile to the main branch.
+
+### Deployment
+
+Now your DevOps pipeline is ready! Pushing changes to the repository will trigger the pipeline and automatically deploy the latest version of your web application.
