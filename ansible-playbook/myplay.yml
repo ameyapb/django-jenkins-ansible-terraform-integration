@@ -1,0 +1,39 @@
+- name: Deploy web application to Web Server
+  hosts: webserver
+  gather_facts: false
+​
+  tasks:
+    - name: Copy application code to Web Server
+      synchronize:
+        src: /home/ec2-user/ansible-data/
+        dest: /opt/tomcat/webapps/
+      remote_user: ec2-user
+​
+    - name: Install Python dependencies
+      pip:
+        requirements: /opt/tomcat/webapps/requirements.txt
+​
+    - name: Check if process is running on port 8080
+      command: sudo fuser -n tcp 8080
+      register: fuser_output
+      ignore_errors: true
+​
+    - name: Kill process running on port 8080
+      command: sudo kill {{ fuser_output.stdout }}
+      when: fuser_output.rc == 0
+​
+    - name: Retrieve server IP address
+      command: curl -s ipinfo.io/ip
+      register: ip_address_output
+​
+    - name: Update ALLOWED_HOSTS setting
+      replace:
+        path: /opt/tomcat/webapps/FoodProject/settings.py
+        regexp: '^(ALLOWED_HOSTS = ).*$'
+        replace: '\1["{{ ip_address_output.stdout | trim }}"]'
+​
+    - name: Set permissions on temporary files
+      command: chmod -R 0755 /home/ec2-user/.ansible/tmp
+​
+    - name: Run the web app
+      command: python /opt/tomcat/webapps/manage.py runserver 0.0.0.0:8080
