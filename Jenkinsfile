@@ -31,9 +31,6 @@ pipeline {
         }
     }
     post {
-        always {
-            // Cleanup actions (if any)
-        }
         success {
             echo 'Deployment and Web App successful!'
             // Additional success actions (if any)
